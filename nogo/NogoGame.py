@@ -115,7 +115,7 @@ class NogoGame(Game):
         if legal_moves.max() == 1:
             return 0
         else:
-            return -1 #-self.convert_back_color()
+            return -self.convert_back_color()
 
     def getCanonicalForm(self, _, __):
         # return state if player==1, else return -state if player==-1
