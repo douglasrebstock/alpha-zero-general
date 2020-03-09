@@ -6,7 +6,7 @@ class Game():
 
     Use 1 for player1 and -1 for player2.
 
-    See othello/OthelloGame.py for an example implementation.
+    See othello/NogoGame.py for an example implementation.
     """
     def __init__(self):
         pass
@@ -111,3 +111,14 @@ class Game():
                          Required by MCTS for hashing.
         """
         pass
+
+    def beginSearch(self):
+        pass
+
+    def endSearch(self):
+        pass
+
+    def inSearch(self):
+        pass
+
+

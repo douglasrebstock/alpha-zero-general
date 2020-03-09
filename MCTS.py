@@ -7,7 +7,7 @@ class MCTS():
     This class handles the MCTS tree.
     """
 
-    def __init__(self, game, nnet, args):
+    def __init__(self, game, nnet, args,):
         self.game = game
         self.nnet = nnet
         self.args = args
@@ -28,8 +28,12 @@ class MCTS():
             probs: a policy vector where the probability of the ith action is
                    proportional to Nsa[(s,a)]**(1./temp)
         """
+
+        self.game.beginSearch()
         for i in range(self.args.numMCTSSims):
+            self.game.inSearch()
             self.search(canonicalBoard)
+        self.game.endSearch()
 
         s = self.game.stringRepresentation(canonicalBoard)
         counts = [self.Nsa[(s,a)] if (s,a) in self.Nsa else 0 for a in range(self.game.getActionSize())]
@@ -65,7 +69,7 @@ class MCTS():
         Returns:
             v: the negative of the value of the current canonicalBoard
         """
-
+        canonicalBoard = self.game.getCanonicalForm(canonicalBoard,1)
         s = self.game.stringRepresentation(canonicalBoard)
 
         if s not in self.Es:
@@ -88,6 +92,7 @@ class MCTS():
                 # NB! All valid moves may be masked if either your NNet architecture is insufficient or you've get overfitting or something else.
                 # If you have got dozens or hundreds of these messages you should pay attention to your NNet and/or training process.   
                 print("All valid moves were masked, do workaround.")
+                assert(False)
                 self.Ps[s] = self.Ps[s] + valids
                 self.Ps[s] /= np.sum(self.Ps[s])
 
